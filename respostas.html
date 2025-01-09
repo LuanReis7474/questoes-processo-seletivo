@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Questões processo seletivo</title>
+</head>
+
+<body>
+    <!-- Cálculo do valor da variável SOMA -->
+    <div>
+        <h2>Calcular o valor final da variável SOMA</h2>
+        <button onclick="calcularSOMA()">Calcular</button>
+        <p id="resultadoSOMA"></p>
+    </div>
+
+    <!-- Verificador de Fibonacci -->
+    <div>
+        <h2>Verificador de Sequência de Fibonacci</h2>
+        <label for="numeroInput">Digite um número:</label>
+        <input type="number" id="numeroInput" placeholder="Ex: 21">
+        <button onclick="verificarFibonacci()">Verificar</button>
+        <p id="resultadoFibonacci"></p>
+    </div>
+
+    <!-- Análise de Faturamento -->
+    <div>
+        <h2>Análise de Faturamento Diário</h2>
+        <button onclick="analisarFaturamento()">Calcular Faturamento</button>
+        <p id="resultadoFaturamento"></p>
+    </div>
+
+    <!-- Faturamento Mensal por Estado -->
+    <div>
+        <h2>Faturamento Mensal por Estado</h2>
+        <button onclick="analisarFaturamentoMensal()">Calcular</button>
+        <p id="resultadoFaturamentoMensal"></p>
+    </div>
+
+    <!-- Inversor de String -->
+    <div>
+        <h2>Inversor de String</h2>
+        <label for="stringInput">Digite uma string:</label>
+        <input type="text" id="stringInput" placeholder="Ex: exemplo">
+        <button onclick="inverterString()">Inverter</button>
+        <p id="resultadoString"></p>
+    </div>
+
+    <script>
+        //Questão 1
+        function calcularSOMA() {
+            let INDICE = 13;
+            let SOMA = 0;
+            let K = 0;
+
+            while (K < INDICE) {
+                K = K + 1;
+                SOMA = SOMA + K;
+            }
+
+            const elementoResultado = document.getElementById('resultadoSOMA');
+            elementoResultado.textContent = `O valor final da variável SOMA é ${SOMA}.`;
+        }
+
+        // Questão 2
+        function pertenceAFibonacci(numero) {
+            if (numero < 0) return false;
+
+            let a = 0, b = 1;
+            while (b < numero) {
+                let temp = b;
+                b = a + b;
+                a = temp;
+            }
+
+            return b === numero || numero === 0;
+        }
+
+        function verificarFibonacci() {
+            const entrada = document.getElementById('numeroInput').value;
+            const numero = parseInt(entrada, 10);
+            const elementoResultado = document.getElementById('resultadoFibonacci');
+
+            if (isNaN(numero)) {
+                elementoResultado.textContent = "Por favor, insira um número válido.";
+                return;
+            }
+
+            if (pertenceAFibonacci(numero)) {
+                elementoResultado.textContent = `O número ${numero} pertence à sequência de Fibonacci.`;
+            } else {
+                elementoResultado.textContent = `O número ${numero} não pertence à sequência de Fibonacci.`;
+            }
+        }
+
+        // Questão 3
+        function analisarFaturamento() {
+            const faturamentoDiario = [
+                0, 1500, 3000, 0, 2000, 4500, 0, 5000, 0, 2300,
+                4000, 0, 1200, 7000, 0, 8000, 1000, 0, 4500, 3000,
+                0, 6000, 0, 2500, 4000, 3000, 0, 5000, 0, 2000
+            ];
+
+            const faturamentoValido = faturamentoDiario.filter(valor => valor > 0);
+            const menorFaturamento = Math.min(...faturamentoValido);
+            const maiorFaturamento = Math.max(...faturamentoValido);
+            const mediaMensal = faturamentoValido.reduce((a, b) => a + b, 0) / faturamentoValido.length;
+            const diasAcimaDaMedia = faturamentoValido.filter(valor => valor > mediaMensal).length;
+
+            const elementoResultado = document.getElementById('resultadoFaturamento');
+            elementoResultado.innerHTML = `
+        <strong>Resultados:</strong><br>
+        Menor faturamento: R$ ${menorFaturamento.toFixed(2)}<br>
+        Maior faturamento: R$ ${maiorFaturamento.toFixed(2)}<br>
+        Dias com faturamento acima da média: ${diasAcimaDaMedia} dia(s)
+      `;
+        }
+
+        // Questão 4
+        function analisarFaturamentoMensal() {
+            const faturamentoMensal = [
+                { "dia": 1, "valor": 22174.1664 },
+                { "dia": 2, "valor": 24537.6698 },
+                { "dia": 3, "valor": 26139.6134 },
+                { "dia": 4, "valor": 0.0 },
+                { "dia": 5, "valor": 0.0 },
+                { "dia": 6, "valor": 26742.6612 },
+                { "dia": 7, "valor": 0.0 },
+                { "dia": 8, "valor": 42889.2258 },
+                { "dia": 9, "valor": 46251.174 },
+                { "dia": 10, "valor": 11191.4722 },
+                { "dia": 11, "valor": 0.0 },
+                { "dia": 12, "valor": 0.0 },
+                { "dia": 13, "valor": 3847.4823 },
+                { "dia": 14, "valor": 373.7838 },
+                { "dia": 15, "valor": 2659.7563 },
+                { "dia": 16, "valor": 48924.2448 },
+                { "dia": 17, "valor": 18419.2614 },
+                { "dia": 18, "valor": 0.0 },
+                { "dia": 19, "valor": 0.0 },
+                { "dia": 20, "valor": 35240.1826 },
+                { "dia": 21, "valor": 43829.1667 },
+                { "dia": 22, "valor": 18235.6852 },
+                { "dia": 23, "valor": 4355.0662 },
+                { "dia": 24, "valor": 13327.1025 },
+                { "dia": 25, "valor": 0.0 },
+                { "dia": 26, "valor": 0.0 },
+                { "dia": 27, "valor": 25681.8318 },
+                { "dia": 28, "valor": 1718.1221 },
+                { "dia": 29, "valor": 13220.495 },
+                { "dia": 30, "valor": 8414.61 }
+            ];
+
+            const faturamentoValido = faturamentoMensal.filter(dia => dia.valor > 0);
+            const totalMensal = faturamentoValido.reduce((acc, dia) => acc + dia.valor, 0);
+
+            const faturamentoEstados = {
+                "SP": 67836.43,
+                "RJ": 36678.66,
+                "MG": 29229.88,
+                "ES": 27165.48,
+                "Outros": 19849.53
+            };
+
+            const percentualPorEstado = Object.entries(faturamentoEstados).map(([estado, valor]) => {
+                const percentual = (valor / totalMensal) * 100;
+                return `${estado}: ${percentual.toFixed(2)}%`;
+            });
+
+            const elementoResultado = document.getElementById('resultadoFaturamentoMensal');
+            elementoResultado.innerHTML = `
+        <strong>Percentual por Estado:</strong><br>
+        ${percentualPorEstado.join("<br>")}
+      `;
+        }
+
+        // Questão 5
+        function inverterString() {
+            const entrada = document.getElementById('stringInput').value;
+            let invertida = "";
+
+            for (let i = entrada.length - 1; i >= 0; i--) {
+                invertida += entrada[i];
+            }
+
+            const elementoResultado = document.getElementById('resultadoString');
+            elementoResultado.textContent = `String invertida: ${invertida}`;
+        }
+    </script>
+</body>
+
+</html>
